@@ -8,34 +8,44 @@ public class GerenciamentoVotacao {
   private ArrayList<PessoaEleitora> pessoaEleitoras = new ArrayList<PessoaEleitora>();
   private ArrayList<String> cpfComputado = new ArrayList<String>();
 
+  /**
+   * Método cadastrarPessoaCandidata.
+   */
   public void cadastrarPessoaCandidata(String nome, int numero) {
     PessoaCandidata pessoaCandidata = new PessoaCandidata(nome, numero);
     for (PessoaCandidata pessoa : pessoaCandidadas) {
       if (pessoa.getNumero() == numero) {
         System.out.println("Número pessoa candidata já utilizado!");
-        return;
+        break;
       }
     }
     pessoaCandidadas.add(pessoaCandidata);
   }
 
+  /**
+   * Método cadastrarPessoaEleitora.
+   */
   public void cadastrarPessoaEleitora(String nome, String cpf) {
     PessoaEleitora pessoaEleitora = new PessoaEleitora(nome, cpf);
     for (PessoaEleitora pessoa : pessoaEleitoras) {
       if (pessoa.getCpf().equals(cpf)) {
         System.out.println("Pessoa eleitora já cadastrada!");
-        return;
+        break;
       }
     }
     pessoaEleitoras.add(pessoaEleitora);
   }
 
+  /**
+   * Método votar.
+   */
   public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
 
     for (PessoaEleitora pessoa : pessoaEleitoras) {
-      if (pessoa.getCpf().contains(cpfPessoaEleitora))
+      if (pessoa.getCpf().contains(cpfPessoaEleitora)) {
         System.out.println("Pessoa eleitora já votou!");
-      return;
+        break;
+      }
     }
 
     for (PessoaCandidata pessoa : pessoaCandidadas) {
@@ -46,6 +56,9 @@ public class GerenciamentoVotacao {
     }
   }
 
+  /**
+   * Método mostrarResultado.
+   */
   public void mostrarResultado() {
     for (PessoaCandidata pessoa : pessoaCandidadas) {
 

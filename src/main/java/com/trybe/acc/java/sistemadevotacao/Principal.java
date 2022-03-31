@@ -4,7 +4,9 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Principal {
-
+  /**
+   * Método Principal.
+   */
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
     GerenciamentoVotacao gerenciamentoVotacao = new GerenciamentoVotacao();
@@ -43,6 +45,7 @@ public class Principal {
     do {
       System.out.println(" Entre com o número correspondente à opção desejada:");
       System.out.println("1 - Votar\n" + "2 - Resultado Parcial\n" + "3 - Finalizar Votação");
+      opcao = scanner.nextShort();
       switch (opcao) {
         case 1:
           System.out.println("Entre com o cpf da pessoa eleitora:");
