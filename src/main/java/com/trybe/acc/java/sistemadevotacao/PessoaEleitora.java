@@ -4,7 +4,7 @@ public class PessoaEleitora extends Pessoa {
 
   private String cpf;
 
-  public PessoaEleitora(String cpf, String nome) {
+  public PessoaEleitora(String nome, String cpf) {
     super(nome);
     this.cpf = cpf;
   }

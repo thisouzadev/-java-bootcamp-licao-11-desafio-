@@ -16,7 +16,7 @@ public class GerenciamentoVotacao {
     for (PessoaCandidata pessoa : pessoaCandidadas) {
       if (pessoa.getNumero() == numero) {
         System.out.println("Número pessoa candidata já utilizado!");
-        break;
+        return;
       }
     }
     pessoaCandidadas.add(pessoaCandidata);
@@ -30,7 +30,7 @@ public class GerenciamentoVotacao {
     for (PessoaEleitora pessoa : pessoaEleitoras) {
       if (pessoa.getCpf().equals(cpf)) {
         System.out.println("Pessoa eleitora já cadastrada!");
-        break;
+        return;
       }
     }
     pessoaEleitoras.add(pessoaEleitora);
@@ -44,7 +44,7 @@ public class GerenciamentoVotacao {
     for (PessoaEleitora pessoa : pessoaEleitoras) {
       if (pessoa.getCpf().contains(cpfPessoaEleitora)) {
         System.out.println("Pessoa eleitora já votou!");
-        break;
+        return;
       }
     }
 
