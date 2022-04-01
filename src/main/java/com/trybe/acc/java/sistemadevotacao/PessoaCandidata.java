@@ -10,8 +10,8 @@ public class PessoaCandidata extends Pessoa {
    */
   public PessoaCandidata(String nome, int numero) {
     super(nome);
-    this.numero = numero;
     this.votos = 0;
+    this.numero = numero;
   }
 
   public String getNome() {
@@ -40,6 +40,6 @@ public class PessoaCandidata extends Pessoa {
 
 
   public void receberVoto() {
-    this.votos += 1;
+    this.votos = votos + 1;
   }
 }

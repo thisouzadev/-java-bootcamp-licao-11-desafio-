@@ -3,23 +3,24 @@ package com.trybe.acc.java.sistemadevotacao;
 import java.util.ArrayList;
 
 public class GerenciamentoVotacao {
-  private int totalVotos;
-  private ArrayList<PessoaCandidata> pessoaCandidadas = new ArrayList<PessoaCandidata>();
+  private ArrayList<PessoaCandidata> pessoasCandidatas = new ArrayList<PessoaCandidata>();
   private ArrayList<PessoaEleitora> pessoaEleitoras = new ArrayList<PessoaEleitora>();
   private ArrayList<String> cpfComputado = new ArrayList<String>();
+  private int totalVotos = 0;
 
   /**
    * Método cadastrarPessoaCandidata.
    */
   public void cadastrarPessoaCandidata(String nome, int numero) {
-    PessoaCandidata pessoaCandidata = new PessoaCandidata(nome, numero);
-    for (PessoaCandidata pessoa : pessoaCandidadas) {
-      if (pessoa.getNumero() == numero) {
+    for (PessoaCandidata pessoa : pessoasCandidatas) {
+      boolean isNumberAlreadyUsed = pessoa.getNumero() == numero;
+      if (isNumberAlreadyUsed) {
         System.out.println("Número pessoa candidata já utilizado!");
         return;
       }
     }
-    pessoaCandidadas.add(pessoaCandidata);
+    PessoaCandidata pessoaCandidata = new PessoaCandidata(nome, numero);
+    pessoasCandidatas.add(pessoaCandidata);
   }
 
   /**
@@ -28,7 +29,8 @@ public class GerenciamentoVotacao {
   public void cadastrarPessoaEleitora(String nome, String cpf) {
     PessoaEleitora pessoaEleitora = new PessoaEleitora(nome, cpf);
     for (PessoaEleitora pessoa : pessoaEleitoras) {
-      if (pessoa.getCpf().equals(cpf)) {
+      boolean isRegistered = pessoa.getCpf().equals(cpf);
+      if (isRegistered) {
         System.out.println("Pessoa eleitora já cadastrada!");
         return;
       }
@@ -42,17 +44,20 @@ public class GerenciamentoVotacao {
   public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
 
     for (PessoaEleitora pessoa : pessoaEleitoras) {
-      if (pessoa.getCpf().contains(cpfPessoaEleitora)) {
+      boolean isAlreadyVoted = cpfComputado.contains(cpfPessoaEleitora);
+      if (isAlreadyVoted) {
         System.out.println("Pessoa eleitora já votou!");
         return;
       }
     }
 
-    for (PessoaCandidata pessoa : pessoaCandidadas) {
-      if (pessoa.getNumero() == numeroPessoaCandidata) {
+    for (PessoaCandidata pessoa : pessoasCandidatas) {
+      boolean isCandidateExists = pessoa.getNumero() == numeroPessoaCandidata;
+      if (isCandidateExists) {
         pessoa.receberVoto();
-        cpfComputado.add(cpfPessoaEleitora);
+        totalVotos += 1;
       }
+      cpfComputado.add(cpfPessoaEleitora);
     }
   }
 
@@ -60,12 +65,23 @@ public class GerenciamentoVotacao {
    * Método mostrarResultado.
    */
   public void mostrarResultado() {
-    for (PessoaCandidata pessoa : pessoaCandidadas) {
-
-      System.out.println(" Nome: " + pessoa.getNome() + " - " + pessoa.getVotos() + " votos ( "
-          + (pessoa.getVotos() * 100.0 / totalVotos) + " )");
+    int contador = 0;
+    for (PessoaCandidata pessoa : pessoasCandidatas) {
+      String nome = pessoa.getNome();
+      int votos = pessoa.getVotos();
+      System.out.println("Nome: " + nome + " - " + votos + " votos " + " - " + "( "
+          + calcularPorcentagemVotos(contador) + "%" + " )");
+      System.out.println("Total de votos: " + totalVotos);
+      contador += 1;
     }
-    System.out.println("Total de votos: " + totalVotos);
   }
 
+  /**
+   * Método calcularPorcentagemVotos.
+   */
+  private double calcularPorcentagemVotos(int contador) {
+    int votos = pessoasCandidatas.get(contador).getVotos();
+    return Math.round(votos * 100.0 / totalVotos);
+  }
 }
+

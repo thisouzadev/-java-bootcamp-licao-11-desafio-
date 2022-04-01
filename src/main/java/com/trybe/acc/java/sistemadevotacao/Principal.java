@@ -46,24 +46,17 @@ public class Principal {
       System.out.println(" Entre com o número correspondente à opção desejada:");
       System.out.println("1 - Votar\n" + "2 - Resultado Parcial\n" + "3 - Finalizar Votação");
       opcao = scanner.nextShort();
-      switch (opcao) {
-        case 1:
-          System.out.println("Entre com o cpf da pessoa eleitora:");
-          String cpf = scanner.next();
-          System.out.println("Entre com o número da pessoa candidata:");
-          int numero = Integer.parseInt(scanner.next());
-          gerenciamentoVotacao.votar(cpf, numero);
-          break;
-        case 2:
-          gerenciamentoVotacao.mostrarResultado();
-          break;
-        default:
-          System.out.println("digite um número valido");
-          break;
+      if (opcao == 1) {
+        System.out.println("Entre com o cpf da pessoa eleitora:");
+        String cpf = scanner.next();
+        System.out.println("Entre com o número da pessoa candidata:");
+        int numero = Integer.parseInt(scanner.next());
+        gerenciamentoVotacao.votar(cpf, numero);
+      } else if (opcao == 2) {
+        gerenciamentoVotacao.mostrarResultado();
       }
     } while (opcao != 3);
+    gerenciamentoVotacao.mostrarResultado();
+    scanner.close();
   }
-
-
-
 }
